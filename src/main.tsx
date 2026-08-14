@@ -104,7 +104,7 @@ const legalContent: Record<
       {
         heading: "Contact",
         text:
-          "For privacy questions or requests, contact us at hello@obrahr.com.",
+          "For privacy questions or requests, contact us at support@obrahr.com.",
       },
     ],
   },
@@ -136,7 +136,7 @@ const legalContent: Record<
       {
         heading: "Contact",
         text:
-          "For questions about these terms, contact us at hello@obrahr.com.",
+          "For questions about these terms, contact us at support@obrahr.com.",
       },
     ],
   },
@@ -316,7 +316,7 @@ function App() {
             <h2>Ready to introduce ObraHR?</h2>
             <p>Connect this page to your booking form, sales email, or lead capture flow.</p>
           </div>
-          <a className="outline-button large" href="mailto:hello@obrahr.com">
+          <a className="outline-button large" href="mailto:support@obrahr.com">
             <Mail size={18} />
             Contact Sales
           </a>
