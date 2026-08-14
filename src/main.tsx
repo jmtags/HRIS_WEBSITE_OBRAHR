@@ -66,8 +66,128 @@ const features = [
   },
 ];
 
+type LegalDialogType = "privacy" | "terms";
+
+const legalContent: Record<
+  LegalDialogType,
+  {
+    title: string;
+    intro: string;
+    sections: Array<{ heading: string; text: string }>;
+  }
+> = {
+  privacy: {
+    title: "Privacy Policy",
+    intro:
+      "This Privacy Policy explains how ObraHR collects, uses, and protects information when visitors use this website or contact our team.",
+    sections: [
+      {
+        heading: "Information We Collect",
+        text:
+          "We may collect contact details, company information, inquiry details, and basic website usage data when you submit a form, email us, or interact with our pages.",
+      },
+      {
+        heading: "How We Use Information",
+        text:
+          "We use information to respond to inquiries, provide product information, improve the website, support sales conversations, and maintain secure business records.",
+      },
+      {
+        heading: "Data Protection",
+        text:
+          "We take reasonable administrative and technical steps to protect information from unauthorized access, loss, misuse, or disclosure.",
+      },
+      {
+        heading: "Sharing Information",
+        text:
+          "We do not sell personal information. We may share limited information with service providers who help us operate the website or respond to requests.",
+      },
+      {
+        heading: "Contact",
+        text:
+          "For privacy questions or requests, contact us at hello@obrahr.com.",
+      },
+    ],
+  },
+  terms: {
+    title: "Terms of Service",
+    intro:
+      "These Terms of Service outline the basic terms for using the ObraHR website and requesting information about our HRIS and payroll platform.",
+    sections: [
+      {
+        heading: "Website Use",
+        text:
+          "You may use this website to learn about ObraHR, request information, and contact our team. You agree not to misuse the site or attempt to disrupt its operation.",
+      },
+      {
+        heading: "Product Information",
+        text:
+          "Website content is provided for general informational purposes. Features, pricing, availability, and service details may change over time.",
+      },
+      {
+        heading: "Intellectual Property",
+        text:
+          "The ObraHR name, branding, images, page content, and visual design are owned by ObraHR or its licensors and may not be copied without permission.",
+      },
+      {
+        heading: "No Professional Advice",
+        text:
+          "Content on this website does not constitute legal, tax, payroll, or compliance advice. Organizations should verify requirements with qualified professionals.",
+      },
+      {
+        heading: "Contact",
+        text:
+          "For questions about these terms, contact us at hello@obrahr.com.",
+      },
+    ],
+  },
+};
+
+function LegalDialog({
+  type,
+  onClose,
+}: {
+  type: LegalDialogType;
+  onClose: () => void;
+}) {
+  const content = legalContent[type];
+  const titleId = `${type}-dialog-title`;
+
+  return (
+    <div className="modal-backdrop" role="presentation" onClick={onClose}>
+      <section
+        className="legal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <header className="legal-dialog-header">
+          <div>
+            <span>ObraHR</span>
+            <h2 id={titleId}>{content.title}</h2>
+          </div>
+          <button className="dialog-close" type="button" aria-label="Close dialog" onClick={onClose}>
+            <X size={22} />
+          </button>
+        </header>
+        <div className="legal-dialog-body">
+          <p className="legal-intro">{content.intro}</p>
+          {content.sections.map((section) => (
+            <article key={section.heading}>
+              <h3>{section.heading}</h3>
+              <p>{section.text}</p>
+            </article>
+          ))}
+          <p className="legal-note">Last updated: 2026</p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [legalDialog, setLegalDialog] = useState<LegalDialogType | null>(null);
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -206,12 +326,13 @@ function App() {
           <ObraLogo />
           <p>2026 ObraHR. All rights reserved.</p>
           <nav aria-label="Footer navigation">
-            <a href="#contact">Privacy Policy</a>
-            <a href="#contact">Terms of Service</a>
+            <button type="button" onClick={() => setLegalDialog("privacy")}>Privacy Policy</button>
+            <button type="button" onClick={() => setLegalDialog("terms")}>Terms of Service</button>
             <a href="#contact">Help Center</a>
           </nav>
         </footer>
       </section>
+      {legalDialog ? <LegalDialog type={legalDialog} onClose={() => setLegalDialog(null)} /> : null}
     </main>
   );
 }

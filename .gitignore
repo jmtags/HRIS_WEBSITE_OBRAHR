@@ -20,3 +20,5 @@ pnpm-debug.log*
 page-check.png
 render-check.png
 reference-style-check.png
+
+.vercel
