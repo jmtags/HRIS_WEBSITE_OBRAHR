@@ -314,9 +314,9 @@ function App() {
         <section className="contact-strip" id="contact">
           <div>
             <h2>Ready to introduce ObraHR?</h2>
-            <p>Connect this page to your booking form, sales email, or lead capture flow.</p>
+            <p>Connect with our team at admin@obrahr.com.</p>
           </div>
-          <a className="outline-button large" href="mailto:support@obrahr.com">
+          <a className="outline-button large" href="mailto:admin@obrahr.com">
             <Mail size={18} />
             Contact Sales
           </a>
